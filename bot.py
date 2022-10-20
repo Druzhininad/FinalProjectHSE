@@ -1,57 +1,35 @@
 import logging
 
-from googletrans import Translator
-from telegram import Update
-from telegram.ext import CommandHandler, Updater, CallbackContext
+from telegram import Update, KeyboardButton
+from telegram import ReplyKeyboardMarkup
+from telegram.constants import ParseMode
+from telegram.ext import filters, ApplicationBuilder, ContextTypes, CommandHandler, MessageHandler
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
 )
-TOKEN = '5514647661:AAHKRnXMae36RLPO80G5zylR4QIjMod3MRI'
 
 
-def start(update, _):
-    update.message.reply_text(f"Здравствуйте! Напишите язык, на который нужно перевести.\n"
-                              f"Доступные языки:\n"
-                              f"en - английский\n"
-                              f"fr - французский\n"
-                              f"de - немецкий\n"
-                              f"it - итальянский\n"
-                              f"ru - русский\n"
-                              f"es - испанский\n"
-                              f"tr - турецкий\n"
-                              f"Формат: /rem en")
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(f"Эй, {update.message.chat.first_name}! Где ваша вежливость?"
+                                    f"\nНапишите <i>здравствуйте</i>, чтобы запустить меня", parse_mode=ParseMode.HTML)
 
 
-def rem(update: Update, context: CallbackContext):
-    if len(context.args) != 1:
-        update.message.reply_text('Укажите, пожалуйста, язык единственным параметром')
+async def hello(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    text = update.message.text
+    if "здравствуйте" in text.lower():
+        await update.message.reply_text(f"И вам не хворать! Что сегодня хотите перевести?")
     else:
-        value = context.args[0]
-        context.user_data['language'] = value
-        update.message.reply_text(f'Отлично! Выбранный язык: {value}\n'
-                                  f'Теперь напишите фразу\n'
-                                  f'Пример: /translate text')
-
-
-def trans(update: Update, context: CallbackContext):
-    translator = Translator()
-    res = translator.translate(''.join(context.args), dest=context.user_data['language'])
-    context.bot.send_message(chat_id=update.effective_chat.id, text=f'Перевод: {res.text}')
+        await update.message.reply_text(
+            "Ничего не понял... Может попробуете еще раз?")
 
 
 if __name__ == '__main__':
-    updater = Updater(TOKEN)
-    dispatcher = updater.dispatcher
-
+    application = ApplicationBuilder().token('5514647661:AAGdRD2u3KH0Slf6ugtPdzNm5TbIiGAZnr4').build()
+    hello_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), hello)
     start_handler = CommandHandler('start', start)
-    trans_handler = CommandHandler('translate', trans)
-    rem_handler = CommandHandler('rem', rem)
+    application.add_handler(start_handler)
+    application.add_handler(hello_handler)
 
-    dispatcher.add_handler(start_handler)
-    dispatcher.add_handler(trans_handler)
-    dispatcher.add_handler(rem_handler)
-
-    updater.start_polling()
-    updater.idle()
+    application.run_polling()
