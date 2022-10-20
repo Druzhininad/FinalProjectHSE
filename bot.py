@@ -1,6 +1,7 @@
 import logging
 
 from telegram import Update, KeyboardButton
+from googletrans import Translator
 from telegram import ReplyKeyboardMarkup
 from telegram.constants import ParseMode
 from telegram.ext import filters, ApplicationBuilder, ContextTypes, CommandHandler, MessageHandler
@@ -11,27 +12,32 @@ logging.basicConfig(
 )
 
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(f"Эй, {update.message.chat.first_name}! Где ваша вежливость?"
-                                    f"\nНапишите <i>здравствуйте</i>, чтобы запустить меня", parse_mode=ParseMode.HTML)
+async def start(update, _):
+    await update.message.reply_text(f"Здравствуйте! Напишите язык, на который нужно перевести.\n"
+                                    f"Доступные языки:\n"
+                                    f"en - английский\n"
+                                    f"fr - французский\n"
+                                    f"de - немецкий\n"
+                                    f"it - итальянский\n"
+                                    f"ru - русский\n"
+                                    f"es - испанский\n"
+                                    f"tr - турецкий\n"
+                                    f"Формат: /rem en")
 
 
-async def hello(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = update.message.text
-    if "здравствуйте" in text.lower():
-        await update.message.reply_text(f"И вам не хворать! Что сегодня хотите перевести?")
-    else:
-        await update.message.reply_text(
-            "Ничего не понял... Может попробуете еще раз?")
+async def rem(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    value = context.args
+    context.user_data['language'] = value
+    await update.message.reply_text(f'Отлично! Выбранный язык: {value}\n'
+                                    f'Теперь напишите фразу\n'
+                                    f'Пример: /translate text')
 
 
-if __name__ == '__main__':
-    application = ApplicationBuilder().token('5514647661:AAGdRD2u3KH0Slf6ugtPdzNm5TbIiGAZnr4').build()
-    hello_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), hello)
+if name == 'main':
+    application = ApplicationBuilder().token('5514647661:AAHKRnXMae36RLPO80G5zylR4QIjMod3MRI').build()
     start_handler = CommandHandler('start', start)
+    rem_handler = CommandHandler('rem', rem)
     application.add_handler(start_handler)
-    application.add_handler(hello_handler)
+    application.add_handler(rem_handler)
 
     application.run_polling()
-
-[f[f[[f[]]]]]
