@@ -33,3 +33,5 @@ if __name__ == '__main__':
     application.add_handler(hello_handler)
 
     application.run_polling()
+
+[f[f[[f[]]]]]
