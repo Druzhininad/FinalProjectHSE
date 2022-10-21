@@ -7,6 +7,11 @@
 * recognize the language from which a word or sentence should be translated
 * translate words and sentences into 7 languages (English, French, German, Italian, Russian, Spanish, Turkish)
 
+#### Used libraries:
+1. python-telegram-bot==13.14
+2. googletrans==3.1.0a0
+
+
 #### List of commands:
 * /start - #getting startes with the bot 
 * /rem[whitespace]'language' - #chosing the translation language (Example: '/rem en')
