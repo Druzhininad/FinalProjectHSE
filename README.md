@@ -11,7 +11,7 @@
 * /rem[whitespace]'language' - #chosing the translation language.(Example: '/rem en')
 * /translate[whitespace]'text' - #translates the text
 
-#### Instal
+#### Install
 ##### clone the project code:
 
 git clone https://github.com/Druzhininad/FinalProjectHSE.git
