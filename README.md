@@ -2,7 +2,7 @@
 
 ### **Telegram - bot traslator**
 
-##### Description:
+#### Description:
 * send text messages
 * translate words and sentences into 7 languages (English, French, German, Italian, Russian, Spanish, Turkish)
 
