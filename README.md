@@ -1,6 +1,6 @@
 # FinalProjectHSE
 
-### **Telegram - bot traslator**
+### **Telegram - bot translator**
 
 #### Description:
 * send text messages
