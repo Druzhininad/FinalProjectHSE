@@ -4,12 +4,13 @@
 
 #### Description:
 * send text messages
+* recognize the language from which a word or sentence should be translated
 * translate words and sentences into 7 languages (English, French, German, Italian, Russian, Spanish, Turkish)
 
 #### List of commands:
 * /start - #getting startes with the bot 
-* /rem[whitespace]'language' - #chosing the translation language.(Example: '/rem en')
-* /translate[whitespace]'text' - #translates the text
+* /rem[whitespace]'language' - #chosing the translation language (Example: '/rem en')
+* /translate[whitespace]'text' - #translates the text (Example: '/translate Hello')
 
 #### Install
 ##### clone the project code:
