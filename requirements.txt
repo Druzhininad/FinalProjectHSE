@@ -1,3 +1,4 @@
+# direct
 python-telegram-bot==13.14
 googletrans==3.1.0a0
 
