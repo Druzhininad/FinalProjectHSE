@@ -1,14 +1,10 @@
 from unittest import TestCase
-from googletrans import Translator
+
+from utils import translate
 
 
-def translate(phrase: str,
-              dest_lang: str) -> str:
-    translator = Translator()
-    return translator.translate(phrase, dest=dest_lang).text
+class TestTranslator(TestCase):
 
-
-class TestTranlsator(TestCase):
     def test_one_lower(self):
         word = "мир"
         language = "en"
@@ -30,5 +26,5 @@ class TestTranlsator(TestCase):
         self.assertEqual(translate(word, language), "wfywfy")
 
 
-if __name__ == "__main__":
-    a = TestTranlsator
+if __name__ == '__main__':
+    a = TestTranslator
