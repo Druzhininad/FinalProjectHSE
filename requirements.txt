@@ -2,6 +2,7 @@
 python-telegram-bot==13.14
 googletrans==3.1.0a0
 
+# indirect
 anyio==3.6.1
 APScheduler==3.6.3
 asgiref==3.4.1
