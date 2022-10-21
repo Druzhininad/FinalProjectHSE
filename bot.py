@@ -1,8 +1,9 @@
 import logging
 
-from googletrans import Translator
 from telegram import Update
 from telegram.ext import CommandHandler, Updater, CallbackContext
+
+from utils import translate
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -36,9 +37,8 @@ def rem(update: Update, context: CallbackContext):
 
 
 def trans(update: Update, context: CallbackContext):
-    translator = Translator()
-    res = translator.translate(''.join(context.args), dest=context.user_data['language'])
-    context.bot.send_message(chat_id=update.effective_chat.id, text=f'Перевод: {res.text}')
+    res = translate(''.join(context.args), context.user_data['language'])
+    context.bot.send_message(chat_id=update.effective_chat.id, text=f'Перевод: {res}')
 
 
 if __name__ == '__main__':
